@@ -1,6 +1,11 @@
-# Project Name
+# Pooriya MMC Tech Test
 
-Brief description of your React project.
+an autocomplete component that provides
+suggestions as a user enters into a search box
+
+## Demo Video
+
+[![Video Title](https://app.screencastify.com/v3/watch/sUTF1dhrfOzSBdcBpbed)](https://app.screencastify.com/v3/watch/sUTF1dhrfOzSBdcBpbed)
 
 ## Table of Contents
 
