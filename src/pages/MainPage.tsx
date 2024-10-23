@@ -136,7 +136,10 @@ export default function MainPage() {
                         <Container
                             onClick={() => onClickSuggestion(item)}
                             key={index}
-                            cursor={"pointer"} py={"2"} px={"4"} display={'flex'} alignItems={'center'} _hover={{ bg: "#ebebeb" }} mx={0} w={'full'} maxW={'full'} >
+                            cursor={"pointer"} py={"2"} px={"4"} display={'flex'} alignItems={'center'} _hover={{ bg: "#e5e5e5" }} mx={0} w={'full'} maxW={'full'}
+                            borderBottomWidth={1}
+                            borderBottomColor={'lightgray'}
+                        >
                             {item.type == "album" &&
                                 <Icon as={IoIosAlbums} />
                             }
@@ -153,22 +156,22 @@ export default function MainPage() {
                                 {highlightMatch(item.text, query)}
                                 {item.subText && highlightMatch(item.subText, query, 'sm', 'gray')}
                             </Box>
-
                         </Container>
                     )
                 }}
             />
-            {selectedItem != null && <Box maxW="2xl" width="full" marginTop="10" bg={'whitesmoke'} rounded={'lg'} p={'8'}>
-                {selectedItem?.type == 'artist' &&
-                    <ArtistRenderer data={selectedItem} />
-                }
-                {selectedItem?.type == 'album' &&
-                    <AlbumRenderer data={selectedItem} />
-                }
-                {selectedItem?.type == 'song' &&
-                    <SongRenderer data={selectedItem} />
-                }
-            </Box>}
+            {selectedItem != null &&
+                <Box maxW="2xl" width="full" marginTop="10" bg={'#e5e5e5'} rounded={'lg'} p={'8'}>
+                    {selectedItem?.type == 'artist' &&
+                        <ArtistRenderer data={selectedItem} />
+                    }
+                    {selectedItem?.type == 'album' &&
+                        <AlbumRenderer data={selectedItem} />
+                    }
+                    {selectedItem?.type == 'song' &&
+                        <SongRenderer data={selectedItem} />
+                    }
+                </Box>}
         </div >
     )
 }

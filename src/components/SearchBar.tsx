@@ -1,5 +1,5 @@
 import { SearchIcon, SmallCloseIcon } from '@chakra-ui/icons';
-import { Container, Input, InputGroup, InputLeftElement, InputRightElement, Text } from '@chakra-ui/react';
+import { Box, Container, Input, InputGroup, InputLeftElement, InputRightElement, Text } from '@chakra-ui/react';
 
 
 type ISearchBar = {
@@ -20,7 +20,7 @@ export default function SearchBar({ value = "", placeholder = "Search ...", onCl
     };
 
     return (
-        <>
+        <Box maxW="2xl" w="full" position={'relative'}>
             <InputGroup mx="auto" maxW="2xl" w="full">
                 <InputLeftElement mt="4">
                     <SearchIcon />
@@ -48,8 +48,11 @@ export default function SearchBar({ value = "", placeholder = "Search ...", onCl
                 }
             </InputGroup>
             {suggestionsVisible && (
-
                 <Container maxW="2xl" w="full" p={0}
+                    borderTopWidth={1}
+                    borderTopColor={'lightgray'}
+                    shadow={'xl'}
+                    position={'absolute'}
                     mx={0}
                     roundedBottom={"lg"}
                     bg={"whitesmoke"}
@@ -58,7 +61,7 @@ export default function SearchBar({ value = "", placeholder = "Search ...", onCl
                 >
                     {suggestions.length > 0 ? (
                         suggestions.map((suggestion: any, index: number) => (
-                            renderSuggestions(suggestion, index) // Call the function to render each suggestion
+                            renderSuggestions(suggestion, index)
                         ))
                     ) : (
                         value.length > 2 && (
@@ -69,6 +72,7 @@ export default function SearchBar({ value = "", placeholder = "Search ...", onCl
                     )}
                 </Container>
             )}
-        </>
+        </Box>
+
     )
 }
