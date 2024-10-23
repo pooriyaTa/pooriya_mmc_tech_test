@@ -9,7 +9,6 @@ export default function AlbumRenderer({ data }: IAlbumRenderer) {
 
     const otherAlbums = data.artist.albums.filter((e: any) => e.title != data.text)
 
-    console.log(otherAlbums)
     return (
         <VStack alignItems={'flex-start'}>
             <Album title={data.text} description={data.description} songs={data.songs} artist={data.artist.name} />

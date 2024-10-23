@@ -120,8 +120,6 @@ export default function MainPage() {
         );
     };
 
-    console.log('selectedItem : ', selectedItem)
-
     return (
         <div className="main">
             <SearchBar
