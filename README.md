@@ -1,50 +1,59 @@
-# React + TypeScript + Vite
+# Project Name
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Brief description of your React project.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. [Installation](#installation)
+2. [Running the Project](#running-the-project)
+3. [Project Structure](#project-structure)
+4. [Technologies Used](#technologies-used)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To set up the project locally, follow these steps:
 
-- Configure the top-level `parserOptions` property like this:
+1. **Clone the repository:**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+   ```bash
+   git clone https://github.com/pooriyaTa/pooriya_mmc_tech_test.git
+   cd pooriya_mmc_tech_test
+   ```
+
+2. **Install dependencies:**
+
+   Ensure you have Node.js installed (version 14+ is recommended).
+
+   ```bash
+   npm install
+   ```
+
+## Running the Project
+
+1. **Development Mode:**
+
+   To run the project in development mode with hot-reloading:
+
+   ```bash
+   npm run dev
+   ```
+
+   The project will start running at [http://localhost:5173](http://localhost:5173) by default.
+
+## Project Structure
+
+```
+src/
+│
+├── assets/            # Static assets (images, icons, fonts, etc.)
+├── components/        # Reusable components
+├── pages/             # Pages (views/screens)
+├── helpers/             # Helper functions
+├── App.tsx             # Main App component
+└── main.tsx           # Entry point
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Technologies Used
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+- **React** - JavaScript library for building user interfaces.
+- **ChakraUI** - A Powerful UI library to build responsive and reusable UI components
