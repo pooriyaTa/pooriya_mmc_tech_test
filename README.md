@@ -5,7 +5,7 @@ suggestions as a user enters into a search box
 
 ## Demo Video
 
-[![Video Title](https://app.screencastify.com/v3/watch/sUTF1dhrfOzSBdcBpbed)](https://app.screencastify.com/v3/watch/sUTF1dhrfOzSBdcBpbed)
+[Watch the demo video](https://app.screencastify.com/v3/watch/sUTF1dhrfOzSBdcBpbed)
 
 ## Table of Contents
 
