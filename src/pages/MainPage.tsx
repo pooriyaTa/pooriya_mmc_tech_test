@@ -1,11 +1,14 @@
-import { Box, Container, Icon, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Container, Icon, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import { GiMicrophone } from "react-icons/gi";
 import { IoIosAlbums, IoMdMusicalNotes } from "react-icons/io";
 import '../App.css';
+import ArtistRenderer from "../components/ArtistRenderer";
 import SearchBar from "../components/SearchBar";
 import { datasource } from "../datasource/data";
 import { getTruncatedSearchedText } from "../helpers/string.helper";
+import AlbumRenderer from "../components/AlbumRenderer";
+import SongRenderer from "../components/SongRenderer";
 
 type ISuggestion = {
     type: string;
@@ -22,6 +25,7 @@ export default function MainPage() {
     const [query, setQuery] = useState('');
     const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
     const [showSuggestions, setShowSuggestions] = useState<boolean>(false)
+    const [selectedItem, setSelectedItem] = useState<ISuggestion | null>(null)
 
     const onSearch = (text: string) => {
         setQuery(text)
@@ -45,12 +49,13 @@ export default function MainPage() {
                 );
                 return [
                     ...(album.title.toLowerCase().includes(lowercaseInput)
-                        ? [{ type: 'album', text: album.title, artist }]
+                        ? [{ type: 'album', text: album.title, artist, description: album.description, songs: album.songs }]
                         : []),
                     ...songs.map((song) => ({
                         artist,
                         type: 'song',
-                        text: `${album.title} - ${song.title}`,
+                        album,
+                        text: `${song.title}`,
                         length: song.length
                     }))
                 ];
@@ -69,10 +74,10 @@ export default function MainPage() {
                     ? [
                         {
                             artist,
-                            type: 'description',
+                            type: 'album',
                             text: descriptionMatch.title,
-                            fullDescription: descriptionMatch.description,
-                            subText: getTruncatedSearchedText(descriptionMatch.description, lowercaseInput, 50),
+                            description: descriptionMatch.description,
+                            subText: getTruncatedSearchedText(descriptionMatch.description, lowercaseInput, 100),
                         }
                     ]
                     : [])
@@ -84,10 +89,12 @@ export default function MainPage() {
         setShowSuggestions(false)
         setQuery('')
         setSuggestions([])
+        setSelectedItem(null)
     }
 
     const onClickSuggestion = (item: ISuggestion) => {
         setQuery(item.text)
+        setSelectedItem(item)
         setShowSuggestions(false)
     }
 
@@ -113,6 +120,8 @@ export default function MainPage() {
         );
     };
 
+    console.log('selectedItem : ', selectedItem)
+
     return (
         <div className="main">
             <SearchBar
@@ -124,24 +133,22 @@ export default function MainPage() {
                 suggestionsVisible={showSuggestions}
                 renderSuggestions={(item: ISuggestion, index: number) => {
                     return (
-                        <Container onClick={() => onClickSuggestion(item)} key={index} cursor={"pointer"} py="2" px={4} display={'flex'} alignItems={'center'} _hover={{ bg: "#ebebeb" }} w={"full"}>
-                            <Tooltip textTransform={"capitalize"} label={item.type}>
-                                <>
-                                    {item.type == "album" &&
-                                        <Icon as={IoIosAlbums} />
-                                    }
-                                    {item.type == "artist" &&
-                                        <Icon as={GiMicrophone} />
-                                    }
-                                    {item.type == "song" &&
-                                        <Icon as={IoMdMusicalNotes} />
-                                    }
-                                    {item.type == "description" &&
-                                        <Icon as={IoIosAlbums} />
-                                    }
-                                </>
-                            </Tooltip>
-
+                        <Container
+                            onClick={() => onClickSuggestion(item)}
+                            key={index}
+                            cursor={"pointer"} py={"2"} px={"4"} display={'flex'} alignItems={'center'} _hover={{ bg: "#ebebeb" }} mx={0} w={'full'} maxW={'full'} >
+                            {item.type == "album" &&
+                                <Icon as={IoIosAlbums} />
+                            }
+                            {item.type == "artist" &&
+                                <Icon as={GiMicrophone} />
+                            }
+                            {item.type == "song" &&
+                                <Icon as={IoMdMusicalNotes} />
+                            }
+                            {item.type == "description" &&
+                                <Icon as={IoIosAlbums} />
+                            }
                             <Box ml={4} display={'flex'} flexDirection={'column'}>
                                 {highlightMatch(item.text, query)}
                                 {item.subText && highlightMatch(item.subText, query, 'sm', 'gray')}
@@ -151,7 +158,17 @@ export default function MainPage() {
                     )
                 }}
             />
-
-        </div>
+            {selectedItem != null && <Box maxW="2xl" width="full" marginTop="10" bg={'whitesmoke'} rounded={'lg'} p={'8'}>
+                {selectedItem?.type == 'artist' &&
+                    <ArtistRenderer data={selectedItem} />
+                }
+                {selectedItem?.type == 'album' &&
+                    <AlbumRenderer data={selectedItem} />
+                }
+                {selectedItem?.type == 'song' &&
+                    <SongRenderer data={selectedItem} />
+                }
+            </Box>}
+        </div >
     )
 }

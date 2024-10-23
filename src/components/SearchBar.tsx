@@ -14,17 +14,14 @@ type ISearchBar = {
 
 export default function SearchBar({ value = "", placeholder = "Search ...", onClearInput, suggestions, renderSuggestions, suggestionsVisible, onValueChange }: ISearchBar) {
 
-
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const userInput = e.target.value;
         onValueChange(userInput)
-
     };
 
     return (
         <>
-            <InputGroup mx="auto" w="xl">
+            <InputGroup mx="auto" maxW="2xl" w="full">
                 <InputLeftElement mt="4">
                     <SearchIcon />
                 </InputLeftElement>
@@ -36,7 +33,7 @@ export default function SearchBar({ value = "", placeholder = "Search ...", onCl
                     }}
                     roundedBottom={suggestionsVisible ? 0 : 'lg'}
                     mt="4"
-                    w="xl"
+                    w="full"
                     variant='filled'
                     type="text"
                     value={value}
@@ -52,7 +49,8 @@ export default function SearchBar({ value = "", placeholder = "Search ...", onCl
             </InputGroup>
             {suggestionsVisible && (
 
-                <Container w='xl' p={0}
+                <Container maxW="2xl" w="full" p={0}
+                    mx={0}
                     roundedBottom={"lg"}
                     bg={"whitesmoke"}
                     maxH={'xl'}
